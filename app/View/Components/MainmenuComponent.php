@@ -4,6 +4,11 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
+use Illuminate\Support\Facades\DB;
+
+// Model Database
+use App\Models\MsMenuModel;
+
 class MainmenuComponent extends Component
 {
     /**
@@ -23,6 +28,9 @@ class MainmenuComponent extends Component
      */
     public function render()
     {
-        return view('components.mainmenu-component');
+        $ms_menu = MsMenuModel::get();
+        return view('components.mainmenu-component', [
+            'Ms_MainMenu' => $ms_menu
+        ]);
     }
 }

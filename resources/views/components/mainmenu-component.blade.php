@@ -37,16 +37,17 @@
     </div>
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
-        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
-            <li class=" nav-item"><a href="../../../html/ltr/vertical-menu-template-semi-dark/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-50 ml-auto">2</span></a>
-                <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="dashboard-ecommerce.html"><i class="bx bx-right-arrow-alt"></i><span class="menu-item text-truncate" data-i18n="eCommerce">eCommerce</span></a>
-                    </li>
-                    <li><a class="d-flex align-items-center" href="dashboard-analytics.html"><i class="bx bx-right-arrow-alt"></i><span class="menu-item text-truncate" data-i18n="Analytics">Analytics</span></a>
-                    </li>
-                </ul>
-            </li>
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">            
+            @foreach ($Ms_MainMenu as $item_menu)
+                <li class="nav-item">
+                    <a href="{{ route($item_menu->menu_routename) }}">
+                        <i class="menu-livicon" data-icon="{{ $item_menu->menu_icon }}"></i>
+                        <span class="menu-title text-truncate" data-i18n="{{ $item_menu->menu_icon }}">{{ $item_menu->menu_title }}</span>
+                    </a>
+                </li>
+            @endforeach
 
+            
             <li class=" navigation-header text-truncate"><span data-i18n="Pages">Application</span>
             </li>
 

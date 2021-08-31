@@ -13,22 +13,47 @@
                 <!-- left section-login -->
                 <div class="col-md-6 col-12 px-0">
                     <div class="card disable-rounded-right mb-0 h-100 d-flex justify-content-center">
-                        <div class="card-header d-flex justify-content-center">
+                        <div class="card-header pb-0 d-flex justify-content-center">
                             <img class="img-fluid w-50" src="{{ asset('images/logo/web_logo.png') }}" alt="branding logo">
+                            <div id="loading-spiner" class="loading-spiner w-100 text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-border text-secondary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-border text-success" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
+                        
+                        <div class="card-body mt-0">
                             <div class="divider">
                                 <div class="divider-text text-uppercase text-muted">
                                     <small>Login Page Today</small>
                                 </div>
                             </div>
-                            <form action="index.html">
+                            <div id="alert-error" class="alert-error alert alert-warning alert-dismissible mb-1" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <div class="d-flex align-items-center">
+                                    <i class="bx bx-error-circle"></i>
+                                    <span class="alert-link" id="pesan-error">
+                                        Masukan Pesan Error Disini..
+                                    </span>
+                                </div>
+                            </div>
+                            <form class="form form-vertical" id="form-login-user" action="{{ route('auth.act_login') }}" method="POST" autocomplete="off">
+                                @csrf
                                 <div class="form-group mb-50">
-                                    <label class="text-bold-600" for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email address"></div>
+                                    <label for="inputusername">Username :</label>
+                                    <input type="text" class="form-control" id="form_username" name="form_username" placeholder="Username" required>
+                                </div>
                                 <div class="form-group">
-                                    <label class="text-bold-600" for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    <label class="text-bold-600" for="exampleInputPassword1">Password :</label>
+                                    <input type="password" class="form-control" id="form_password" name="form_password" placeholder="Password" required>
                                 </div>
                                 <div class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
                                     <div class="text-left">
@@ -60,5 +85,5 @@
 
 {{-- page scripts --}}
 @section('page-scripts')
-<script src="{{ asset('app-assets/js/scripts/pages/faq.js?version=')}}{{ uniqid() }}"></script>
+<script src="{{ asset('js/page_scripts/authentication.js?version=')}}{{uniqid() }}"></script>
 @endsection

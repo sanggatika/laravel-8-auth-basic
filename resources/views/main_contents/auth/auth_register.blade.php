@@ -46,7 +46,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <form class="form form-vertical" id="form-tambah-master-user" action="{{ route('auth.register') }}" method="POST" autocomplete="off">
+                            <form class="form form-vertical" id="form-tambah-master-user" action="{{ route('auth.act_register') }}" method="POST" autocomplete="off">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-6 mb-50">

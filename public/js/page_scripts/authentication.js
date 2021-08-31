@@ -1,3 +1,73 @@
+function ActLoginUsers()
+{
+    $("#form-login-user").on("submit", (e) => {
+        e.preventDefault();
+
+        $('#alert-error').hide();
+
+        let token = $('input[name=_token]').val();
+        let tmp_username = $("#form_username").val();
+        let tmp_password = $("#form_password").val();
+
+        if(tmp_username != "" && tmp_password != "")
+        {
+            $.ajax({
+                url: BaseURL + "/auth/act_login",
+                data: {
+                    token,
+                    tmp_username,
+                    tmp_password
+                },
+                method: "POST",
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                beforeSend: function () {
+                    $('#loading-spiner').show();                                
+                },
+                success: function (data) {
+                    $('#loading-spiner').hide(1000);
+                    
+                    let dataKeluaran = data;
+
+                    if(dataKeluaran.status == true)
+                    {        
+                        Swal.fire({
+                            title: 'Insert Success !',
+                            text: dataKeluaran.message,
+                            icon: "success",
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            confirmButtonText: 'Oke',
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            window.location.replace(BaseURL + "/adm/dashboard");
+                        })
+
+                    }else{
+                        $('#alert-error').show(1000);
+                        $("#pesan-error").html(dataKeluaran.message);
+                    }
+                },
+                error: function () {
+                    $('#loading-spiner').hide(1000);
+                    Swal.fire({
+                        title: "Informasi",
+                        text: "Harap Hubungi Petugas, Data Tidak Terkirim",
+                        icon: "warning",
+                        confirmButtonClass: 'btn btn-primary',
+                        buttonsStyling: false,
+                    });
+                }
+            });
+        }else{
+            $('#alert-error').show(1000);
+            $("#pesan-error").html("Username dan Password Wajib Diisi..");
+        }
+    });
+}
+
 function ActTambahUsers()
 {
     $("#form-tambah-master-user").on("submit", (e) => {
@@ -42,10 +112,7 @@ function ActTambahUsers()
                                 let dataKeluaran = data;
 
                                 if(dataKeluaran.status == true)
-                                {
-                                    $("#form-tambah-master-user")[0].reset();
-                                    $('#accordion5').collapse("hide");
-        
+                                {        
                                     Swal.fire({
                                         title: 'Insert Success !',
                                         text: dataKeluaran.message,
@@ -55,7 +122,7 @@ function ActTambahUsers()
                                         confirmButtonText: 'Oke',
                                     }).then((result) => {
                                         /* Read more about isConfirmed, isDenied below */
-                                        
+                                        window.location.replace(BaseURL + "/auth/login");
                                     })
         
                                 }else{
@@ -98,6 +165,7 @@ function ActTambahUsers()
     });
 }
 
-$(document).ready(function() {     
+$(document).ready(function() {
+    ActLoginUsers();     
     ActTambahUsers();
 });
