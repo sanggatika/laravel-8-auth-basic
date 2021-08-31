@@ -9,7 +9,7 @@
                 <div class="media m-75">
                     <a href="JavaScript:void(0);">
                         <div class="avatar mr-75">
-                            <img src="../../../app-assets/images/portrait/small/avatar-s-2.jpg" alt="avtar images" width="32" height="32">
+                            <img src="{{ asset('app-assets/images/portrait/small/avatar-s-2.jpg') }}" alt="avtar images" width="32" height="32">
                             <span class="avatar-status-online"></span>
                         </div>
                     </a>

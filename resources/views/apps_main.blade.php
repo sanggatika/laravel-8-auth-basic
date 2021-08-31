@@ -9,6 +9,7 @@
     <meta name="description" content="Laravel 8 - Belajar Dari Awal PARSINTA">
     <meta name="keywords" content="admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="SANGGATIKA">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>SanggatikaADM - @yield('title')</title>
 
@@ -18,6 +19,8 @@
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/vendors.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/animate/animate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/extensions/sweetalert2.min.css')}}">
 
     @yield('vendor-styles')
     <!-- END: Vendor CSS-->
@@ -43,7 +46,7 @@
 
     <!-- Base URL Java Script -->
     <script>
-        let data_url = "{{ url('/') }}";
+        let BaseURL = "{{ url('/') }}";
     </script>
 </head>
 <!-- END: Head-->
@@ -57,7 +60,7 @@
     <!-- END: Header-->
 
     <!-- BEGIN: Main Menu-->
-    @include('main_layouts.02_mainmenu')
+    <x-MainmenuComponent></x-MainmenuComponent>
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
@@ -88,6 +91,9 @@
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
+    <script src="{{asset('app-assets/vendors/js/extensions/sweetalert2.all.min.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/extensions/polyfill.min.js')}}"></script>
+
     @yield('vendor-scripts')
     <!-- END: Page Vendor JS-->
 

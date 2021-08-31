@@ -20,7 +20,7 @@ use App\Http\Middleware\AuthBasicMiddleware;
 */
 
 Route::get('/', function () {
-    return view('main_contents.auth.auth_login');
+    return view('main_contents.page_faq');
 });
 
 Route::prefix('auth')->group(function () {
@@ -28,5 +28,8 @@ Route::prefix('auth')->group(function () {
         Route::get('login', [AuthenticationController::class, 'loginPage'])->name('auth.login');
         Route::get('register', [AuthenticationController::class, 'registerPage'])->name('auth.register');
         Route::get('forgot-password', [AuthenticationController::class, 'forgotpasswordPage'])->name('auth.forgot_password');
+        
+        // action
+        Route::post('act_register', [AuthenticationController::class, 'registerAct'])->name('auth.act_register');
     });
 });

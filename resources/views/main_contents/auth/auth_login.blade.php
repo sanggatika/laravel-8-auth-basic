@@ -14,7 +14,7 @@
                 <div class="col-md-6 col-12 px-0">
                     <div class="card disable-rounded-right mb-0 h-100 d-flex justify-content-center">
                         <div class="card-header d-flex justify-content-center">
-                            <img class="img-fluid w-50" src="{{ asset('public/images/logo/web_logo.png') }}" alt="branding logo">
+                            <img class="img-fluid w-50" src="{{ asset('images/logo/web_logo.png') }}" alt="branding logo">
                         </div>
                         <div class="card-body">
                             <div class="divider">
@@ -49,7 +49,7 @@
                 </div>
                 <!-- right section image -->
                 <div class="col-md-6 d-md-block d-none text-center align-self-center p-3">
-                    <img class="img-fluid" src="{{ asset('public/app-assets/images/pages/login.png') }}" alt="branding logo">
+                    <img class="img-fluid" src="{{ asset('app-assets/images/pages/login.png') }}" alt="branding logo">
                 </div>
             </div>
         </div>
@@ -60,5 +60,5 @@
 
 {{-- page scripts --}}
 @section('page-scripts')
-<script src="{{ asset('public/app-assets/js/scripts/pages/faq.js?version=')}}{{ uniqid() }}"></script>
+<script src="{{ asset('app-assets/js/scripts/pages/faq.js?version=')}}{{ uniqid() }}"></script>
 @endsection

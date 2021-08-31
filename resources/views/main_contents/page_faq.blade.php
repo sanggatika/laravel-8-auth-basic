@@ -1,7 +1,7 @@
 @extends('apps_main')
 
 {{-- title --}}
-@section('title', $appName)
+@section('title', 'Dashboard')
 
 {{-- vendor style --}}
 @section('vendor-styles')
