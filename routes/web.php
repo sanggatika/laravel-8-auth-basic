@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+//controller
+use App\Http\Controllers\AuthenticationController;
+
+//middleware
+use App\Http\Middleware\AuthBasicMiddleware;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +20,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main_contents.auth.auth_login');
+});
+
+Route::prefix('auth')->group(function () {
+    Route::middleware('AuthBasic')->group(function () {
+        Route::get('login', [AuthenticationController::class, 'loginPage'])->name('auth.login');
+        Route::get('register', [AuthenticationController::class, 'registerPage'])->name('auth.register');
+        Route::get('forgot-password', [AuthenticationController::class, 'forgotpasswordPage'])->name('auth.forgot_password');
+    });
 });

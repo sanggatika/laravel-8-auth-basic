@@ -839,6 +839,7 @@
 @section('vendor-scripts')
 <script src="{{asset('app-assets/vendors/js/extensions/swiper.min.js')}}"></script>
 @endsection
+
 {{-- page scripts --}}
 @section('page-scripts')
 <script src="{{asset('app-assets/js/scripts/pages/faq.js?version=')}}{{uniqid()}}"></script>
