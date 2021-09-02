@@ -50,3 +50,7 @@ Route::prefix('adm')->group(function () {
         Route::get('data_chart', [DashboardController::class, 'DashboardPage'])->name('adm.data_chart');
     });
 });
+
+Route::fallback( function () {
+    abort( 404 );
+} );
