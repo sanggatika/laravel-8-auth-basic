@@ -40,6 +40,7 @@ function ActLoginUsers()
                             showDenyButton: false,
                             showCancelButton: false,
                             confirmButtonText: 'Oke',
+                            allowOutsideClick: false
                         }).then((result) => {
                             /* Read more about isConfirmed, isDenied below */
                             window.location.replace(BaseURL + "/adm/dashboard");

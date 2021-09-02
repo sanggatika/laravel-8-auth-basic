@@ -39,5 +39,14 @@ Route::prefix('auth')->group(function () {
 Route::prefix('adm')->group(function () {
     Route::middleware('AuthBasic')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'DashboardPage'])->name('adm.dash');
+
+        Route::get('users', [DashboardController::class, 'DashboardPage'])->name('adm.users');
+        Route::get('menu', [DashboardController::class, 'DashboardPage'])->name('adm.menu');
+        Route::get('auth', [DashboardController::class, 'DashboardPage'])->name('adm.auth');
+        Route::get('auth/roleuser', [DashboardController::class, 'DashboardPage'])->name('adm.auth.role');
+        Route::get('auth/authorization', [DashboardController::class, 'DashboardPage'])->name('adm.auth.authorization');
+        Route::get('antrian', [DashboardController::class, 'DashboardPage'])->name('adm.antrian');
+        Route::get('riwayat_antrian', [DashboardController::class, 'DashboardPage'])->name('adm.riwayat_antrian');
+        Route::get('data_chart', [DashboardController::class, 'DashboardPage'])->name('adm.data_chart');
     });
 });

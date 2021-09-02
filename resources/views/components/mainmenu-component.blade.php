@@ -38,24 +38,45 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">            
-            @foreach ($Ms_MainMenu as $item_menu)
-                <li class="nav-item">
-                    <a href="{{ route($item_menu->menu_routename) }}">
-                        <i class="menu-livicon" data-icon="{{ $item_menu->menu_icon }}"></i>
-                        <span class="menu-title text-truncate" data-i18n="{{ $item_menu->menu_icon }}">{{ $item_menu->menu_title }}</span>
-                    </a>
-                </li>
-            @endforeach
-
             
-            <li class=" navigation-header text-truncate"><span data-i18n="Pages">Application</span>
+            <li class="nav-item {{ Route::currentRouteName() == "adm.dash" ? 'active' : '' }}"><a href="{{ route('adm.dash') }}"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title text-truncate" data-i18n="desktop">Dashboard</span></a>
             </li>
 
-            <li class=" nav-item"><a href="page-user-profile.html"><i class="menu-livicon" data-icon="user"></i><span class="menu-title text-truncate" data-i18n="User Profile">User Profile</span></a>
-            </li>
-            <li class="active nav-item"><a href="page-faq.html"><i class="menu-livicon" data-icon="question-alt"></i><span class="menu-title text-truncate" data-i18n="FAQ">FAQ</span></a>
-            </li>
+            @foreach ($Grup_menu as $key => $value)
+                <li class=" navigation-header text-truncate"><span data-i18n="{{ $key }}">{{ $key }}</span></li>
+                @foreach ($value as $item_menu)
+                    @if ($item_menu->menu_parent == 0)
+                    <li class="nav-item {{ Route::currentRouteName() === $item_menu->menu_routename ? 'active' : '' }}">
+                        <a href="{{ route($item_menu->menu_routename) }}">
+                            <i class="menu-livicon" data-icon="{{ $item_menu->menu_icon }}"></i>
+                            <span class="menu-title text-truncate" data-i18n="{{ $item_menu->menu_icon }}">{{ $item_menu->menu_title }}</span>
+                        </a>
 
+                        @if ($item_menu->menu_parent_status == 1)
+                        <ul class="menu-content">
+                            @foreach ($value as $sub_menu)
+                                @if ($sub_menu->menu_parent == $item_menu->id)
+                                <li {{ $sub_menu->menu_routename === Route::currentRouteName() ? 'class=active' : '' }}>
+                                    <a class="d-flex align-items-center" href="{{ route($sub_menu->menu_routename) }}">
+                                        <i class="bx bx-right-arrow-alt"></i>
+                                        <span class="menu-item text-truncate" data-i18n="{{ $sub_menu->menu_title }}">{{ $sub_menu->menu_title }}</span>
+                                    </a>
+                                </li>
+                                @endif
+                            @endforeach  
+                        </ul>
+                        @endif
+                    </li>                    
+                    @endif
+                @endforeach                
+            @endforeach
+            
+            <li class="nav-item">
+                <a href="{{ route('auth.logout') }}">
+                    <i class="menu-livicon" data-icon="lock"></i>
+                    <span class="menu-title text-truncate" data-i18n="lock">Logout</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
