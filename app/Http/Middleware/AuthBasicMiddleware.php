@@ -4,9 +4,15 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Session;
 
 use Illuminate\Support\Facades\DB;
+
+// Model Database
+use App\Models\MsMenuModel;
+use App\Models\MsAuthorizationModel;
+use App\Models\V_menuAuthorizationModel;
 
 class AuthBasicMiddleware
 {
@@ -19,14 +25,34 @@ class AuthBasicMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        // Menampung User Session
         $UserLogin = session()->get('userLogin');
-        $uri_path = $request->route()->getName();
-
-        $pathName_auth = ['auth.login', 'auth.register', 'auth.forgot_password'];
+        
+        // Menampung Data Route Name
+        $uri_pathname = Route::currentRouteName();
 
         if($UserLogin != null)
         {
-            return $next($request);
+            $roleID = $UserLogin->admin_role;
+            $roleAuthorization = MsAuthorizationModel::where('id_role', $roleID)->get();
+            
+            $tmpMenuID = [];
+            $tmpMenuRoutename = ['adm.dash', ];
+
+            foreach($roleAuthorization as $item)
+            {
+                array_push($tmpMenuID, $item['id_menu']);
+                array_push($tmpMenuRoutename, $item['menu_routename']);
+            }
+            
+            if(in_array($uri_pathname, $tmpMenuRoutename))
+            {
+                $request->dataMenuID = $tmpMenuID;
+                $request->dataMenuRoutename = $tmpMenuRoutename;
+                return $next($request);
+            }else{
+                abort(403);
+            }            
         }else{
             return redirect()->route('auth.logout');
         }        

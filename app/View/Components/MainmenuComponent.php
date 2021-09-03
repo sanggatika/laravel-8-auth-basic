@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use Illuminate\Http\Request;
 use Illuminate\View\Component;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -18,9 +19,11 @@ class MainmenuComponent extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $tmpMenuRole = null;
+    public function __construct(Request $request)
     {
-        //
+        // Menampung Hasil Dari Middelware
+        $this->tmpMenuRole = $request->dataMenuID;
     }
 
     /**
@@ -29,21 +32,11 @@ class MainmenuComponent extends Component
      * @return \Illuminate\Contracts\View\View|\Closure|string
      */
     public function render()
-    {        
-        $UserLogin = session()->get('userLogin');
-        $roleID = $UserLogin->admin_role;
-
-        $roleAuthorization = MsAuthorizationModel::select('id_menu')
-        ->where('id_role', $roleID)->get();
-        
-        $tmpMenuRole = [];
-        foreach($roleAuthorization as $item)
-        {
-            array_push($tmpMenuRole, $item['id_menu']);
-        }
+    {      
+        $MenuRole = $this->tmpMenuRole;
 
         $ms_menu = MsMenuModel::where('menu_visible', 1)
-        ->whereIn('id', $tmpMenuRole)
+        ->whereIn('id', $MenuRole)
         ->orderBy('menu_sort')->get();
 
         $collection = collect($ms_menu);
