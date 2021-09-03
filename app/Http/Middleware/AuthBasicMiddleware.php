@@ -34,7 +34,7 @@ class AuthBasicMiddleware
         if($UserLogin != null)
         {
             $roleID = $UserLogin->admin_role;
-            $roleAuthorization = MsAuthorizationModel::where('id_role', $roleID)->get();
+            $roleAuthorization = V_menuAuthorizationModel::where('id_role', $roleID)->get();
             
             $tmpMenuID = [];
             $tmpMenuRoutename = ['adm.dash', ];
